@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudantes de Atitude – CEMO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700&family=Amsterdam+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+:root{
+  --laranja:#f7941d;
+  --roxo:#8e5bd6;
+  --lilas:#ead9ff;
+  --rosa:#e91e63;
+  --vinho:#8b0038;
+  --verde:#2ecc71;
+  --vermelho:#e74c3c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'League Spartan',sans-serif;background:#fff}
+.hidden{display:none}
+
+/* HEADER */
+header{
+  height:70px;
+  background:var(--laranja);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:3000;
+}
+header button{
+  position:absolute;
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:26px;
+  cursor:pointer;
+}
+#btnMenu{left:20px}
+#btnVoltar{right:20px;font-size:14px}
+
+/* MENU */
+#menu{
+  position:fixed;
+  top:0;left:-300px;
+  width:300px;height:100%;
+  background:#f6f1ff;
+  padding:100px 20px 30px;
+  transition:.3s;
+  z-index:4000;
+  display:flex;
+  flex-direction:column;
+}
+#menu.open{left:0}
+#menu button{
+  margin-bottom:14px;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.i{background:#b388ff}
+.c{background:#ff6f91}
+.e{background:#6ec6ff}
+.a{background:#e91e63}
+.social{
+  margin-top:auto;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+.social a{font-size:26px;color:#7b3fe4}
+
+/* SECTIONS */
+section{
+  min-height:100vh;
+  padding:120px 30px 60px;
+  position:relative;
+}
+section.active{display:block}
+section:not(.active){display:none}
+
+/* DECORAÇÃO */
+.decor{
+  position:absolute;
+  width:180px;
+  top:120px;
+  z-index:1;
+  pointer-events:none
+}
+.left{left:-40px}
+.right{right:-40px}
+.flip{transform:scaleX(-1)}
+.footer{
+  position:absolute;
+  bottom:-160px;
+  left:0;
+  width:100%;
+  z-index:0;
+}
+
+/* FORM / ADM */
+.form{max-width:650px;margin:0 auto;position:relative;z-index:2}
+label{display:block;margin-top:16px;color:#5a2ea6}
+input,select,textarea{
+  width:100%;
+  padding:14px;
+  border-radius:18px;
+  border:none;
+  background:var(--lilas);
+}
+button.submit{
+  margin-top:22px;
+  padding:14px 30px;
+  border:none;
+  border-radius:22px;
+  background:var(--roxo);
+  color:#fff;
+  cursor:pointer;
+}
+button.danger{background:var(--vermelho)}
+.msg{margin-top:15px;padding:14px;border-radius:14px;text-align:center}
+.ok{background:#eafaf1;color:var(--verde)}
+.err{background:#fdecea;color:var(--vermelho)}
+.card{
+  background:#f6f1ff;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:15px;
+}
+.tabs button{
+  margin:6px;
+  padding:10px 18px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  background:#ddd;
+}
+.tabs button.active{background:var(--roxo);color:#fff}
+
+h1{
+  font-family:'Amsterdam One',cursive;
+  font-size:64px;
+  color:var(--laranja);
+  text-align:center;
+}
+.center{text-align:center;font-size:18px}
+</style>
+</head>
+
+<body>
+
+<header id="header">
+  <button id="btnMenu">☰</button>
+  <span id="titulo">ESTUDANTES DE ATITUDE – CEMO</span>
+  <button id="btnVoltar" class="hidden">VOLTAR</button>
+</header>
+
+<div id="menu">
+  <button class="i" data-page="home">INÍCIO</button>
+  <button class="i" data-page="inscricoes">INSCRIÇÕES</button>
+  <button class="c" data-page="consulta">CONSULTA</button>
+  <button class="e" data-page="equipe">EQUIPE</button>
+  <button class="a" data-page="adm">ÁREA ADM</button>
+
+  <div class="social">
+    <a id="ig" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a id="yt" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a id="wp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- HOME -->
+<section id="home" class="active">
+  <h1>Bem-Vindo!</h1>
+  <p class="center">Acesse o menu para fazer <b>INSCRIÇÃO</b>, <b>CONSULTA</b> ou <b>ALGO A MAIS</b>.</p>
+  <div class="center">
+    <button class="submit" id="btnAbrirMenu">ACESSE O MENU POR AQUI</button>
+  </div>
+  <img src="planeta_roxo.png" class="decor left flip">
+  <img src="foguete_roxo.png" class="decor right">
+  <img src="rodape_planeta.png" class="footer">
+</section>
+
+<!-- INSCRIÇÕES -->
+<section id="inscricoes">
+  <div class="form">
+    <label>Nome</label><input id="iNome">
+    <label>CPF</label><input id="iCpf">
+    <label>Email</label><input id="iEmail">
+    <label>WhatsApp</label><input id="iWhats">
+
+    <label>Turno</label>
+    <select id="iTurno">
+      <option value="">Selecione</option>
+      <option>Matutino</option>
+      <option>Vespertino</option>
+      <option>Noturno</option>
+    </select>
+
+    <label>Turma</label>
+    <select id="iTurma"></select>
+
+    <button class="submit" id="btnInscrever">ENVIAR</button>
+    <div id="msgInscricao"></div>
+  </div>
+
+  <img src="planeta_roxo.png" class="decor left flip">
+  <img src="foguete_roxo.png" class="decor right">
+  <img src="rodape_planeta.png" class="footer">
+</section>
+
+<!-- CONSULTA -->
+<section id="consulta">
+  <div class="form">
+    <label>Nome ou CPF</label><input id="cBusca">
+    <button class="submit" id="btnConsultar">CONSULTAR</button>
+    <div id="msgConsulta"></div>
+  </div>
+  <img src="planeta_amarelo.png" class="decor left">
+  <img src="planeta_roxo.png" class="decor right">
+  <img src="rodape_planeta.png" class="footer">
+</section>
+
+<!-- EQUIPE -->
+<section id="equipe">
+  <div class="form">
+    <label>Nome</label><input id="eNome">
+    <label>Email</label><input id="eEmail">
+    <label>Mensagem</label><textarea id="eMsg"></textarea>
+    <button class="submit" id="btnMsg">ENVIAR</button>
+    <div id="msgEquipe"></div>
+  </div>
+
+  <!-- planetas invertidos conforme pedido -->
+  <img src="planeta_roxo.png" class="decor left flip">
+  <img src="planeta_amarelo.png" class="decor right flip">
+  <img src="rodape_planeta.png" class="footer">
+</section>
+
+<!-- ADM -->
+<section id="adm">
+  <div class="form" id="loginAdm">
+    <label>Senha Administrativa</label>
+    <input type="password" id="senhaAdm">
+    <button class="submit" id="btnLogin">ENTRAR</button>
+  </div>
+
+  <div class="form hidden" id="painelAdm">
+    <div class="tabs">
+      <button id="tabIns" class="active">INSCRIÇÕES</button>
+      <button id="tabLinks">LINKS</button>
+      <button id="tabLogos">LOGOS</button>
+      <button id="tabTurmas">TURMAS</button>
+    </div>
+
+    <div id="conteudoAdm"></div>
+  </div>
+
+  <img src="planeta_amarelo.png" class="decor left">
+  <img src="foguete_roxo.png" class="decor right">
+  <img src="rodape_planeta.png" class="footer">
+</section>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyBMeX3_lZSiWtT0nkmcM067RF15pD6mZ58",
+ authDomain:"estudantes-atitude-cemo.firebaseapp.com",
+ projectId:"estudantes-atitude-cemo"
+};
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+/* TURNOS E TURMAS */
+const turmas={
+ Matutino:["7ºA","7ºB","7ºC","7ºD","7ºE","7ºF","8ºF","9ºA","9ºB","9ºC","9ºD","9ºE"],
+ Vespertino:["6ºA","6ºB","6ºC","6ºD","6ºE","6ºF","6ºG","8ºA","8ºB","8ºC","8ºD","8ºE"],
+ Noturno:["1ºA","1ºB","1ºC","1ºD","1ºE","1ºF","2ºA","2ºB","2ºC","3ºA","3ºB","3ºC"]
+};
+
+iTurno.onchange=()=>{
+ iTurma.innerHTML='<option value="">Selecione</option>';
+ (turmas[iTurno.value]||[]).forEach(t=>{
+  const o=document.createElement('option');o.text=t;iTurma.add(o);
+ });
+};
+
+/* MENU / PÁGINAS */
+const cores={home:'var(--laranja)',inscricoes:'var(--roxo)',consulta:'var(--vinho)',equipe:'var(--roxo)',adm:'var(--rosa)'};
+function trocar(p){
+ document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(p).classList.add('active');
+ header.style.background=cores[p];
+ titulo.innerText={
+  home:'ESTUDANTES DE ATITUDE – CEMO',
+  inscricoes:'INSCRIÇÕES',
+  consulta:'CONSULTA',
+  equipe:'EQUIPE EA26 – CEMO',
+  adm:'ÁREA ADMINISTRATIVA'
+ }[p];
+ btnVoltar.classList.toggle('hidden',p==='home');
+ menu.classList.remove('open');
+}
+btnMenu.onclick=()=>menu.classList.toggle('open');
+btnAbrirMenu.onclick=()=>menu.classList.toggle('open');
+btnVoltar.onclick=()=>trocar('home');
+menu.querySelectorAll('button[data-page]').forEach(b=>b.onclick=()=>trocar(b.dataset.page));
+
+/* INSCRIÇÃO */
+btnInscrever.onclick=async()=>{
+ await addDoc(collection(db,'inscricoes'),{
+  nome:iNome.value,cpf:iCpf.value,email:iEmail.value,whatsapp:iWhats.value,
+  turno:iTurno.value,turma:iTurma.value,status:'AGUARDANDO'
+ });
+ msgInscricao.innerHTML='<div class="msg ok">Inscrição realizada com sucesso</div>';
+};
+
+/* CONSULTA */
+btnConsultar.onclick=async()=>{
+ const snap=await getDocs(collection(db,'inscricoes'));
+ let r=null;
+ snap.forEach(d=>{if(d.data().cpf===cBusca.value||d.data().nome===cBusca.value)r=d.data()});
+ msgConsulta.innerHTML=!r?'<div class="msg err">Não encontrado</div>':
+ r.status==='SELECIONADO'?'<div class="msg ok">Selecionado</div>':
+ r.status==='DESCLASSIFICADO'?'<div class="msg err">Desclassificado</div>':
+ '<div class="msg">Aguardando avaliação</div>';
+};
+
+/* EQUIPE */
+btnMsg.onclick=async()=>{
+ await addDoc(collection(db,'mensagens'),{nome:eNome.value,email:eEmail.value,msg:eMsg.value});
+ msgEquipe.innerHTML='<div class="msg ok">Mensagem enviada</div>';
+};
+
+/* ADM LOGIN */
+btnLogin.onclick=async()=>{
+ if(senhaAdm.value!=='52090949'){alert('Senha incorreta');return}
+ loginAdm.classList.add('hidden');
+ painelAdm.classList.remove('hidden');
+ carregarLinksMenu();
+ abrirInscricoes();
+};
+
+/* TABS ADM */
+tabIns.onclick=()=>{setTab(tabIns);abrirInscricoes()}
+tabLinks.onclick=()=>{setTab(tabLinks);abrirLinks()}
+tabLogos.onclick=()=>{setTab(tabLogos);abrirLogos()}
+tabTurmas.onclick=()=>{setTab(tabTurmas);abrirTurmas()}
+function setTab(t){[tabIns,tabLinks,tabLogos,tabTurmas].forEach(b=>b.classList.remove('active'));t.classList.add('active')}
+
+/* INSCRIÇÕES ADM */
+async function abrirInscricoes(){
+ conteudoAdm.innerHTML='';
+ const snap=await getDocs(collection(db,'inscricoes'));
+ snap.forEach(d=>{
+  const c=document.createElement('div');
+  c.className='card';
+  c.innerHTML=`
+   <b>${d.data().nome}</b><br>${d.data().turno} - ${d.data().turma}<br>
+   <select>
+    <option>AGUARDANDO</option>
+    <option>SELECIONADO</option>
+    <option>DESCLASSIFICADO</option>
+   </select>
+   <button class="submit">Salvar</button>
+   <button class="submit danger">Cancelar</button>
+  `;
+  c.querySelector('select').value=d.data().status;
+  c.querySelector('.submit').onclick=()=>updateDoc(doc(db,'inscricoes',d.id),{status:c.querySelector('select').value});
+  c.querySelector('.danger').onclick=()=>{deleteDoc(doc(db,'inscricoes',d.id));c.remove()};
+  conteudoAdm.appendChild(c);
+ });
+}
+
+/* LINKS */
+async function abrirLinks(){
+ conteudoAdm.innerHTML=`
+  <label>Instagram</label><input id="lIg">
+  <label>YouTube</label><input id="lYt">
+  <label>WhatsApp</label><input id="lWp">
+  <button class="submit" id="salvarLinks">Salvar</button>
+ `;
+ salvarLinks.onclick=async()=>{
+  await setDoc(doc(db,'config','links'),{ig:lIg.value,yt:lYt.value,wp:lWp.value});
+  alert('Links salvos');
+  carregarLinksMenu();
+ };
+}
+
+/* LOGOS */
+async function abrirLogos(){
+ conteudoAdm.innerHTML=`
+  <label>URL da Logo</label>
+  <input id="logoUrl" placeholder="https://...">
+  <label>Onde aparece?</label>
+  <select id="logoLocal">
+    <option value="menu">Menu</option>
+    <option value="home">Home</option>
+    <option value="rodape">Rodapé</option>
+  </select>
+  <p><b>Pré-visualização</b></p>
+  <img id="previewLogo" style="max-width:200px;margin:10px 0">
+  <button class="submit" id="salvarLogo">Salvar Logo</button>
+ `;
+ logoUrl.oninput=()=>previewLogo.src=logoUrl.value;
+ salvarLogo.onclick=async()=>{
+  await addDoc(collection(db,'logos'),{url:logoUrl.value,local:logoLocal.value});
+  alert('Logo salva');
+ };
+}
+
+/* TURMAS */
+async function abrirTurmas(){
+ conteudoAdm.innerHTML=`
+  <label>Turno</label>
+  <select id="fTurno">
+    <option value="">Selecione</option>
+    <option>Matutino</option>
+    <option>Vespertino</option>
+    <option>Noturno</option>
+  </select>
+  <label>Turma</label>
+  <select id="fTurma"></select>
+  <button class="submit" id="verTurma">Ver Inscritos</button>
+  <div id="resultadoTurma"></div>
+ `;
+ fTurno.onchange=()=>{
+  fTurma.innerHTML='';
+  (turmas[fTurno.value]||[]).forEach(t=>{
+    const o=document.createElement('option');o.text=t;fTurma.add(o);
+  });
+ };
+ verTurma.onclick=async()=>{
+  const snap=await getDocs(collection(db,'inscricoes'));
+  let total=0;
+  snap.forEach(d=>{
+    if(d.data().turno===fTurno.value && d.data().turma===fTurma.value) total++;
+  });
+  resultadoTurma.innerHTML=`<div class="card">${fTurma.value}: ${total} inscritos</div>`;
+ };
+}
+
+/* APLICAR LINKS NO MENU */
+async function carregarLinksMenu(){
+ const snap=await getDoc(doc(db,'config','links'));
+ if(!snap.exists()) return;
+ const l=snap.data();
+ if(l.ig) ig.href=l.ig;
+ if(l.yt) yt.href=l.yt;
+ if(l.wp) wp.href=l.wp;
+}
+carregarLinksMenu();
+</script>
+
+</body>
+</html>
